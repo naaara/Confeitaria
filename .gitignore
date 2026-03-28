@@ -1,5 +1,9 @@
-.metadata/ 
-target/ 
-.settings/ 
-.project 
-.classpath 
+/.metadata/
+/target/
+/.settings/
+/.project
+/.classpath
+/bin/
+.mvn/wrapper/maven-wrapper.jar
+node_modules/
+.DS_Store
