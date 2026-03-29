@@ -1,6 +1,7 @@
 package com.br.model;
 
 import java.sql.Date;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,148 +9,131 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="automovel")
-public class Automovel {
-	
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long codigo;
-	
-	@Column(name="nome")
-	private String nome;
-	
-	@Column(name="modelo")
-	private String modelo;
-	
-	@Column(name="datafabricacao")
-	private Date dataFabricacao;
-	
-	@Column(name="quantidade")
-	private int quantidade;
-	
-	@Column(name="precovenda")
-	private double precoVenda;
-	
-	@Column(name="trioeletrico")
-	private boolean trioEletrico;
+@Table(name="pedido")
+public class Pedido {
 
-	
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	private Marca marca;
-	
-	
-	
-	
-	//Construtor padrão
-	public Automovel() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long codigo;
 
+    @Column(name="dataPedido")
+    private Date dataPedido;
 
-	//Construtor com todos os atributos
-	public Automovel(Long codigo, String nome, String modelo, Date dataFabricacao, int quantidade, double precoVenda,
-			boolean trioEletrico, Marca marca) {
-		super();
-		this.codigo = codigo;
-		this.nome = nome;
-		this.modelo = modelo;
-		this.dataFabricacao = dataFabricacao;
-		this.quantidade = quantidade;
-		this.precoVenda = precoVenda;
-		this.trioEletrico = trioEletrico;
-		this.marca = marca;
-	}
+    @Column(name="status")
+    private String status;
 
+    @Column(name = "observacao")
+    private String observacao;
 
-	//Gets & Sets
-	public Long getCodigo() {
-		return codigo;
-	}
+    @Column(name="valorTotal")
+    private Double valorTotal;
 
+    @Column(name="entrega")
+    private Boolean entrega;
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
-	}
+    // Relacionamento com Cliente (muitos pedidos pertencem a um cliente)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Cliente cliente;
 
+    // Relacionamento com Produto (um pedido pode ter muitos produtos)
+    // Cria automaticamente a tabela intermediária "pedido_produto" no banco
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "pedido_produto",
+        joinColumns = @JoinColumn(name = "pedido_id"),
+        inverseJoinColumns = @JoinColumn(name = "produto_id")
+    )
+    private List<Produto> produtos;
 
-	public String getNome() {
-		return nome;
-	}
+    // Construtor padrão
+    public Pedido() {
+        super();
+    }
 
+    // Construtor com todos os atributos
+    public Pedido(Long codigo, String observacao, String status, Date dataPedido, double valorTotal,
+            boolean entrega, Cliente cliente, List<Produto> produtos) {
+        super();
+        this.codigo = codigo;
+        this.observacao = observacao;
+        this.status = status;
+        this.dataPedido = dataPedido;
+        this.entrega = entrega;
+        this.valorTotal = valorTotal;
+        this.cliente = cliente;
+        this.produtos = produtos;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    // Gets & Sets
+    public Long getCodigo() {
+        return codigo;
+    }
 
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
+    }
 
-	public String getModelo() {
-		return modelo;
-	}
+    public String getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
-	}
+    public String getObservacao() {
+        return observacao;
+    }
 
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
 
-	public Date getDataFabricacao() {
-		return dataFabricacao;
-	}
+    public Date getDataPedido() {
+        return dataPedido;
+    }
 
+    public void setDataPedido(Date dataPedido) {
+        this.dataPedido = dataPedido;
+    }
 
-	public void setDataFabricacao(Date dataFabricacao) {
-		this.dataFabricacao = dataFabricacao;
-	}
+    public double getValorTotal() {
+        return valorTotal;
+    }
 
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
 
-	public int getQuantidade() {
-		return quantidade;
-	}
+    public boolean getEntrega() {
+        return entrega;
+    }
 
+    public void setEntrega(boolean entrega) {
+        this.entrega = entrega;
+    }
 
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
-	}
+    public Cliente getCliente() {
+        return cliente;
+    }
 
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
-	public double getPrecoVenda() {
-		return precoVenda;
-	}
+    // Get e Set da lista de produtos do pedido
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
 
-
-	public void setPrecoVenda(double precoVenda) {
-		this.precoVenda = precoVenda;
-	}
-
-
-	public boolean isTrioEletrico() {
-		return trioEletrico;
-	}
-
-
-	public void setTrioEletrico(boolean trioEletrico) {
-		this.trioEletrico = trioEletrico;
-	}
-
-
-	public Marca getMarca() {
-		return marca;
-	}
-
-
-	public void setMarca(Marca marca) {
-		this.marca = marca;
-	}
-	
-	
-	
-	
-	
-
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
 }

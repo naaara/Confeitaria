@@ -76,7 +76,7 @@ public class Produto {
 	}
 
 	
-	public String getdescricao() {
+	public String getDescricao() {
 		return descricao;
 	}
 	public void setDescricao(String descricao) {
@@ -91,7 +91,7 @@ public class Produto {
 		this.categoria = categoria;
 	}
 	
-	public Double getpreco() {
+	public Double getPreco() {
 		return preco;
 	}
 	public void setPreco(Double preco) {
@@ -105,7 +105,7 @@ public class Produto {
 		this.dataCadastro = dataCadastro;
 	}
 	
-	public Boolean isDisponivel() {
+	public Boolean getDisponivel() {
 		return disponivel;
 	}
 	public void setDisponivel(Boolean disponivel) {

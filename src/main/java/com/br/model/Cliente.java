@@ -30,7 +30,7 @@ public class Cliente {
 	private Date dataNascimento;
 	
 	@Column (name = "ativo")
-	private boolean ativo;
+	private Boolean ativo;
 	
 	@Column (name = "cpf")
 	private String cpf;
@@ -98,7 +98,7 @@ public class Cliente {
 	}
 	
 	
-	public Boolean isAtivo() {
+	public Boolean getAtivo() {
 		return ativo;
 	}
 	public void setAtivo(Boolean ativo) {
