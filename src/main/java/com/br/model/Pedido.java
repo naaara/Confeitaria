@@ -2,115 +2,154 @@ package com.br.model;
 
 import java.sql.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "produto")
-public class Pedido {
+@Table(name="automovel")
+public class Automovel {
+	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long codigo;
 	
-	@Column(name = "nome")
+	@Column(name="nome")
 	private String nome;
 	
+	@Column(name="modelo")
+	private String modelo;
 	
-	@Column(name = "descricao")
-	private String descricao;
+	@Column(name="datafabricacao")
+	private Date dataFabricacao;
+	
+	@Column(name="quantidade")
+	private int quantidade;
+	
+	@Column(name="precovenda")
+	private double precoVenda;
+	
+	@Column(name="trioeletrico")
+	private boolean trioEletrico;
+
+	
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	private Marca marca;
 	
 	
-	@Column(name = "categoria")
-	private String categoria;
 	
 	
-	@Column(name = "preco")
-	private Double preco;
-	
-	
-	@Column(name = "disponivel")
-	private Boolean disponivel;
-	
-	
-	@Column(name = "dataCadastro")
-	private Date dataCadastro;
-	
-	//construtor padrão
-	public Pedido() {
-		
+	//Construtor padrão
+	public Automovel() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-	public Pedido(Long codigo, String nome, String descricao, String categoria, Double preco, Date dataCadastro, boolean disponivel) {
-		
+
+
+	//Construtor com todos os atributos
+	public Automovel(Long codigo, String nome, String modelo, Date dataFabricacao, int quantidade, double precoVenda,
+			boolean trioEletrico, Marca marca) {
 		super();
 		this.codigo = codigo;
 		this.nome = nome;
-		this.descricao = descricao;
-		this.categoria = categoria;
-		this.dataCadastro = dataCadastro;
-		this.preco = preco;
-		this.disponivel = disponivel;
-	
+		this.modelo = modelo;
+		this.dataFabricacao = dataFabricacao;
+		this.quantidade = quantidade;
+		this.precoVenda = precoVenda;
+		this.trioEletrico = trioEletrico;
+		this.marca = marca;
 	}
 
-	//get e sets
-	
+
+	//Gets & Sets
 	public Long getCodigo() {
 		return codigo;
 	}
+
+
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
-	
-	
+
+
 	public String getNome() {
 		return nome;
 	}
+
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
+
+	public String getModelo() {
+		return modelo;
+	}
+
+
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
+
+
+	public Date getDataFabricacao() {
+		return dataFabricacao;
+	}
+
+
+	public void setDataFabricacao(Date dataFabricacao) {
+		this.dataFabricacao = dataFabricacao;
+	}
+
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+
+
+	public double getPrecoVenda() {
+		return precoVenda;
+	}
+
+
+	public void setPrecoVenda(double precoVenda) {
+		this.precoVenda = precoVenda;
+	}
+
+
+	public boolean isTrioEletrico() {
+		return trioEletrico;
+	}
+
+
+	public void setTrioEletrico(boolean trioEletrico) {
+		this.trioEletrico = trioEletrico;
+	}
+
+
+	public Marca getMarca() {
+		return marca;
+	}
+
+
+	public void setMarca(Marca marca) {
+		this.marca = marca;
+	}
 	
-	public String getdescricao() {
-		return descricao;
-	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
 	
 	
-	public String getCategoria() {
-		return categoria;
-	}
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
 	
-	public Double getpreco() {
-		return preco;
-	}
-	public void setPreco(Double preco) {
-		this.preco = preco;
-	}
-	
-	public Date getDataCadastro() {
-		return dataCadastro;
-	}
-	public void setDataCadastro(Date dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
-	
-	public Boolean isDisponivel() {
-		return disponivel;
-	}
-	public void setDisponivel(Boolean disponivel) {
-		this.disponivel = disponivel;
-	}
 	
 
 }
